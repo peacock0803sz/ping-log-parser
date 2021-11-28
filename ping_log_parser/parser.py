@@ -1,11 +1,7 @@
 from __future__ import annotations
-from argparse import ArgumentParser
 from dataclasses import dataclass
 from datetime import datetime
-from pathlib import Path
 from typing import Literal
-
-HERE = Path(__file__).parent.resolve()
 
 
 @dataclass
@@ -36,19 +32,3 @@ def parse(src: list[str]) -> list:  # type: ignore
             result.append(msg)
         previous = record
     return result
-
-
-def main():
-    parser = ArgumentParser()
-    parser.add_argument("--src", "-s", type=Path, help="Path to log file")
-    args = parser.parse_args()
-
-    src = HERE / args.src.resolve()
-    with open(src, "r") as f:
-        result = parse(f.readlines())
-        for s in result:
-            print(s)
-
-
-if __name__ == "__main__":
-    main()
