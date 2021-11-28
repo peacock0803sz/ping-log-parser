@@ -13,9 +13,10 @@ class Record:
     response: int | Literal["-"]
 
 
-def parse(src: list[str]) -> list:  # type: ignore
+def parse(src: list[str], retry: int = 0) -> list:  # type: ignore
     """文字列のリストを受け取り、サーバーがタイムアウトしていた期間を返却する"""
     result = []
+    count = 0
     previous = Record(timestamp=datetime.now(), address="127.0.0.1", response=1)
     for line in src:
         split_line = line.split(",")
@@ -28,7 +29,9 @@ def parse(src: list[str]) -> list:  # type: ignore
         record = Record(timestamp=dt, address=addr, response=res)
 
         if previous.response == "-":
-            msg = f"Server {previous.address} is dead since {previous.timestamp} to {record.timestamp}"  # noqa
-            result.append(msg)
+            count += 1
+            if count > retry:
+                msg = f"Server {previous.address} is dead since {previous.timestamp} to {record.timestamp}"  # noqa
+                result.append(msg)
         previous = record
     return result
