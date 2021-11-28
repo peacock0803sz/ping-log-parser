@@ -10,12 +10,15 @@ HERE = Path(__file__).parent.resolve()
 
 @dataclass
 class Record:
+    """ログの1レコードを表現する"""
+
     timestamp: datetime
     address: str
     response: int | Literal["-"]
 
 
 def parse(src: list[str]) -> list:  # type: ignore
+    """文字列のリストを受け取り、サーバーがタイムアウトしていた期間を返却する"""
     result = []
     previous = Record(timestamp=datetime.now(), address="127.0.0.1", response=1)
     for line in src:
