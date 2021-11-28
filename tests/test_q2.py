@@ -1,4 +1,4 @@
-from ping_log_parser.parser import parse
+from ping_log_parser.parser import calc_timeout
 
 import pytest
 
@@ -21,5 +21,5 @@ from tests.utils import load_data
     ],
 )
 def test_q2_parse(data, expected, retry):
-    result = parse(data, retry)
+    result = calc_timeout(data, retry)
     assert result == expected

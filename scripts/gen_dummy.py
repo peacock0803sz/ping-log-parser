@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from datetime import datetime
+from datetime import datetime, timedelta
 from ipaddress import ip_network
 from pathlib import Path
 import random
@@ -12,10 +12,16 @@ def gen_dummy(size: int, base: int, prefix=16) -> list[str]:
     data = []
     res = "0"
     addr = "127.0.0.1"
+    previous = 1
     for i in range(size):
-        dt = now.strftime("%Y%m%d%H%M" + str(i).zfill(2)[-2])
+        dt = (now + timedelta(seconds=i)).strftime("%Y%m%d%H%M%S")
         addr = random.choice(list(ip_network(f"{base}/{prefix}"))) if res != "-" else addr
-        res_time = random.randint(0, 500)
+        if not previous:
+            res_time = random.randint(0, 1)
+        else:
+            res_time = random.randint(0, 500)
+        if not res_time:
+            previous = 0
         res = str(res_time) if res_time else "-"
         data.append(f"{dt},{addr}/{prefix},{res}\n")
     return data
