@@ -3,7 +3,7 @@
 ## 実行方法
 
 ```sh
-python3 -m ping_log_parser --src path/to/logfile
+python3 -m ping_log_parser --src path/to/logfile --retry 3
 ```
 
 ## 環境構築 (for developing)
