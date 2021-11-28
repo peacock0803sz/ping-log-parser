@@ -10,16 +10,23 @@ from tests.utils import load_data
     [
         (
             load_data("./assets/test1.txt"),
-            ["Server 192.168.2.198 is dead since 2021-11-28 22:47:05 to 2021-11-28 22:47:06"],
+            [
+                "Server 192.168.10.14/28 is dead since 2021-11-29 00:45:03 to 2021-11-29 00:45:03",
+                "Server 192.168.10.12/28 is dead since 2021-11-29 00:45:06 to 2021-11-29 00:45:06",
+            ],
         ),
         (
             load_data("./assets/test2.txt"),
+            ["Server 10.0.10.121/24 is dead since 2021-11-29 00:46:06 to 2021-11-29 00:46:06"],
+        ),
+        (
+            load_data("./assets/test3.txt"),
             [
-                "Server 192.168.43.252 is dead since 2021-11-28 23:12:07 to 2021-11-28 23:12:07",
-                "Server 10.254.216.249 is dead since 2021-11-28 23:12:01 to 2021-11-28 23:12:01",
+                "Server 10.0.100.196/24 is dead since 2021-11-29 00:48:04 to 2021-11-29 00:48:05",
+                "Server 10.0.100.34/24 is dead since 2021-11-29 00:48:06 to 2021-11-29 00:48:06",
+                "Server 10.0.100.15/24 is dead since 2021-11-29 00:48:04 to 2021-11-29 00:48:04",
             ],
         ),
-        (load_data("./assets/test3.txt"), []),
     ],
 )
 def test_q1_parse(data, expected):
